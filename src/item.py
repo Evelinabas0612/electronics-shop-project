@@ -13,7 +13,10 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        pass
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+        Item.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -21,10 +24,28 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        pass
+        if self.price >= 0 or self.quantity:
+            return self.quantity * self.price
+        else:
+            "Цена или количество товара в магазине не могут быть отрицательными числами"
 
     def apply_discount(self) -> None:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        pass
+        if self.price >= 0 or self.pay_rate:
+            self.price = self.price * self.pay_rate
+        else:
+            "Цена или размер скидки не могут быть отрицательными числами"
+
+    def __repr__(self):
+        """
+        Возвращает строку, содержащую печатаемое официальное представление объекта
+        """
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        """
+        Возвращает строку, содержащую печатаемое неформальное представление объекта
+        """
+        return f"{self.name}, {self.price}, {self.quantity}"
