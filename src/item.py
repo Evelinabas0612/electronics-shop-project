@@ -1,3 +1,6 @@
+import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -13,7 +16,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
@@ -42,10 +45,47 @@ class Item:
         """
         Возвращает строку, содержащую печатаемое официальное представление объекта
         """
-        return f"Item('{self.name}', {self.price}, {self.quantity})"
+        return f"Item('{self.__name}', {self.price}, {self.quantity})"
 
     def __str__(self):
         """
         Возвращает строку, содержащую печатаемое неформальное представление объекта
         """
-        return f"{self.name}, {self.price}, {self.quantity}"
+        return f"{self.__name}, {self.price}, {self.quantity}"
+
+    @property
+    def name(self):
+        """
+        Геттер
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, size):
+        """
+        Сеттер с проверкой, что в наименовании товара не более 10 символов
+        """
+        if len(size) <= 10:
+            print("Наименование товара не превышает 10 символов")
+            self.__name = size
+        else:
+            print("Наименование товара не превышает 10 символов")
+
+    @staticmethod
+    def string_to_number(str_number):
+        """
+        статический метод, возвращающий число из числа-строки
+        """
+        return int(float(str_number))
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv
+        """
+        cls.all.clear()
+        with open('../src/items.csv', 'r', encoding="cp1251", newline='', ) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                cls(row['name'], row['price'], row['quantity'])
+

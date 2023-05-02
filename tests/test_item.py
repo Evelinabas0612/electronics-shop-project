@@ -56,3 +56,15 @@ def test_calculate_total_price_negative(fixture_object_negative):
                                                                                            "товара в магазине не " \
                                                                                            "могут быть отрицательными " \
                                                                                            "числами"
+
+
+def test_string_to_number(fixture_object):
+    assert fixture_object.string_to_number("7") == 7
+    assert fixture_object.string_to_number("7.0") == 7
+    assert fixture_object.string_to_number("7.7") == 7
+
+
+def test_setter_name(fixture_object):
+    assert len(fixture_object.name) <= 10
+    assert len(fixture_object.name + "wwwwwwww") > 10
+
