@@ -51,7 +51,7 @@ class Item:
         """
         Возвращает строку, содержащую печатаемое неформальное представление объекта
         """
-        return f"{self.__name}, {self.price}, {self.quantity}"
+        return f"{self.__name}"
 
     @property
     def name(self):
