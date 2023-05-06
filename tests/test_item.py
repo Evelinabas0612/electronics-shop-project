@@ -35,7 +35,7 @@ def test__repr__(fixture_object):
 
 
 def test__str__(fixture_object):
-    assert str(fixture_object) == 'something, 1000.0, 3'
+    assert str(fixture_object) == 'something'
 
 
 def test_check_attribute(fixture_object):
