@@ -2,6 +2,7 @@
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -12,6 +13,11 @@ def fixture_object():
 @pytest.fixture
 def fixture_object_negative():
     return Item("something", - 1000.0, - 3)
+
+
+@pytest.fixture
+def fixture_object_subclass():
+    return Phone("phone", 100.0, 10, 20)
 
 
 def test_item(fixture_object):
@@ -67,4 +73,21 @@ def test_string_to_number(fixture_object):
 def test_setter_name(fixture_object):
     assert len(fixture_object.name) <= 10
     assert len(fixture_object.name + "wwwwwwww") > 10
+
+
+def test_item_isinstance(fixture_object):
+    # используется для проверки принадлежности объекта к определенному классу
+    assert isinstance(fixture_object, Item)
+
+
+def test_item_issubclass(fixture_object_subclass):
+    # используется для проверки, наследуется ли какой-либо класс от другого
+    assert issubclass(type(fixture_object_subclass), Item)
+
+
+def test__add__(fixture_object, fixture_object_subclass):
+    string = "строка"
+    assert fixture_object + fixture_object_subclass == 13
+    with pytest.raises(TypeError):
+        fixture_object + string
 

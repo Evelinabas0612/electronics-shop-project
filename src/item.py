@@ -19,7 +19,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        Item.all.append(self)
+        # Item.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -89,3 +89,11 @@ class Item:
             for row in reader:
                 cls(row['name'], row['price'], row['quantity'])
 
+    def __add__(self, other):
+        """
+         Возвращает результат сложения экземпляров класса Phone и Item
+        """
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise TypeError('Суммируется экземпляр класса, который не наследник.')
