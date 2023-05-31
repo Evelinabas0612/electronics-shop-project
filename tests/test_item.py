@@ -1,7 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -91,3 +91,16 @@ def test__add__(fixture_object, fixture_object_subclass):
     with pytest.raises(TypeError):
         fixture_object + string
 
+
+def test_get_csv_file():
+    Item.instantiate_from_csv('../src/items.csv')
+
+
+def test_get_csv_file_not():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(path_file='../src/not_file.csv')
+
+
+def test_get_csv_file_with_error():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(path_file='../src/with_error.csv')
